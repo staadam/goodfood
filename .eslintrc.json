@@ -1,0 +1,15 @@
+{
+  "extends": ["react-app", "react-app/jest", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": ["warn", { "singleQuote": true, "printWidth": 110, "endOfLine": "auto" }],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"]
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["prettier","react", "@typescript-eslint"]
+}
