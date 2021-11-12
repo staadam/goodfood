@@ -1,27 +1,5 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { NavLink as Link } from 'react-router-dom';
-
-const showLines = keyframes`
-  from{
-    transform: scaleX(0);
-  }
-  
-  to{
-    transform: scaleX(1);
-  }
-`;
-
-const showLinks = keyframes`
-  from{
-    transform: translateX(-200%);
-    opacity: 0;
-  }
-  
-  to{
-    transform: translateX(0);
-    opacity: 1;
-  }
-`;
 
 export const Wrapper = styled.nav`
   display: grid;
@@ -80,7 +58,6 @@ export const StyledListBorder = styled(StyledList)`
     height: 3px;
     background-color: ${({ theme: { colors } }) => colors.primaryColor};
     transform-origin: left center;
-    animation: ${showLines} 0.5s 1 ease both;
   }
 
   &::before {
@@ -100,7 +77,6 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   padding: 10px;
   transition: color 0.1s, background-color 0.1s;
-  animation: ${showLinks} 0.5s 0.3s 1 ease both;
 
   &:hover {
     color: ${({ theme: { colors } }) => colors.primaryColor};
