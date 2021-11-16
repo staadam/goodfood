@@ -23,13 +23,13 @@ export const Navigation = () => {
         </User>
         <StyledListBorder>
           <li>
-            <StyledLink to='/list/diets'>Diets</StyledLink>
+            <StyledLink to='/list/diet'>Diet</StyledLink>
           </li>
           <li>
-            <StyledLink to='/list/cuisines'>Cuisines</StyledLink>
+            <StyledLink to='/list/cuisine'>Cuisine</StyledLink>
           </li>
           <li>
-            <StyledLink to='/list/types'>Types</StyledLink>
+            <StyledLink to='/list/type'>Type</StyledLink>
           </li>
         </StyledListBorder>
         <StyledList>

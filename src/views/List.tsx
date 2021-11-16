@@ -20,22 +20,28 @@ type CategoryList = Array<string>;
 
 export const List = () => {
   const { category } = useParams<IParams>();
-  const [categories, setCategories] = useState<CategoryList>([]);
+  const [subCategories, setSubCategories] = useState<CategoryList>([]);
+
+  const fetchCategories = async (category: string) => {
+    try {
+      const { data } = await axios.post('/.netlify/functions/categories', { category });
+      setSubCategories(data);
+    } catch (err) {
+      console.log('error'); //handle error
+    }
+  };
 
   useEffect(() => {
-    setCategories([]);
-    axios
-      .post('/.netlify/functions/categories', { category })
-      .then((res) => {
-        setCategories(res.data.options);
-      })
-      .catch((err) => console.log('error')); //handle error
+    setSubCategories([]);
+    fetchCategories(category);
   }, [category]);
 
   return (
     <Wrapper>
-      {categories.length
-        ? categories.map((category, index) => <LinkTile key={index} category={category} />)
+      {subCategories.length
+        ? subCategories.map((subCategory, index) => (
+            <LinkTile key={index} subCategory={subCategory} category={category} />
+          ))
         : 'loading'}
     </Wrapper>
   );
