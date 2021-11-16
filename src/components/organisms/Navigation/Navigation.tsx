@@ -8,6 +8,7 @@ import {
   StyledListBorder,
   User,
   Controls,
+  Footer,
 } from './Navigation.styled';
 
 export const Navigation = () => {
@@ -42,6 +43,18 @@ export const Navigation = () => {
         </StyledList>
       </Menu>
       <Controls>login</Controls>
+      <Footer>
+        <div>
+          Icons made by{' '}
+          <a href='https://www.flaticon.com/authors/flat-icons' title='Flat Icons'>
+            Flat Icons
+          </a>{' '}
+          from{' '}
+          <a href='https://www.flaticon.com/' title='Flaticon'>
+            www.flaticon.com
+          </a>
+        </div>
+      </Footer>
     </Wrapper>
   );
 };

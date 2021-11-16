@@ -4,7 +4,7 @@ import { NavLink as Link } from 'react-router-dom';
 export const Wrapper = styled.nav`
   display: grid;
   height: 100vh;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto;
   max-width: 300px;
   min-width: 200px;
   width: 30%;
@@ -90,4 +90,15 @@ export const StyledLink = styled(Link)`
 
 export const Controls = styled.ul`
   padding: 25px;
+`;
+
+export const Footer = styled.footer`
+  font-size: 10px;
+  padding: 5px 25px;
+  color: gray;
+
+  a {
+    text-decoration: none;
+    color: gray;
+  }
 `;
