@@ -9,11 +9,12 @@ interface IMealPreviewProps {
   vegan: boolean;
   glutenFree: boolean;
   imgSrc: string;
+  imgAlt: string;
 }
 
-export const MealPreview = ({ popular, vegan, glutenFree, imgSrc }: IMealPreviewProps) => (
+export const MealPreview = ({ popular, vegan, glutenFree, imgSrc, imgAlt }: IMealPreviewProps) => (
   <Wrapper>
-    <MealImg>{<img src={imgSrc} alt={'sss'} />}</MealImg>
+    <MealImg>{<img src={imgSrc} alt={imgAlt} />}</MealImg>
     <Badges>
       {popular && <img alt='popular' src={popularImg} />}
       {vegan && <img alt='vegan' src={glutenFreeImg} />}

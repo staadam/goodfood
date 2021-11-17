@@ -37,31 +37,31 @@ interface IMealInfo {
   extendedIngredients: Array<IIngredients>;
 }
 
-// const placeholder = {
-//   title: 'Garlicky Kale',
-//   image: 'https://spoonacular.com/recipeImages/644387-556x370.jpg',
-//   sourceUrl: 'http://www.foodista.com/recipe/J2FTJBF7/garlicky-kale',
-//   creditsText: 'Foodista.com – The Cooking Encyclopedia Everyone Can Edit',
-//
-//   spoonacularScore: 99,
-//   readyInMinutes: 45,
-//
-//   veryPopular: false,
-//   glutenFree: true,
-//   vegan: true,
-//   extendedIngredients: [
-//     {
-//       id: 1,
-//       name: 'cebula',
-//       measures: {
-//         metric: {
-//           amount: 1,
-//           unitLong: 'Tbs',
-//         },
-//       },
-//     },
-//   ],
-// };
+const placeholder = {
+  title: 'Garlicky Kale',
+  image: 'https://spoonacular.com/recipeImages/644387-556x370.jpg',
+  sourceUrl: 'http://www.foodista.com/recipe/J2FTJBF7/garlicky-kale',
+  creditsText: 'Foodista.com – The Cooking Encyclopedia Everyone Can Edit',
+
+  spoonacularScore: 73,
+  readyInMinutes: 45,
+
+  veryPopular: false,
+  glutenFree: true,
+  vegan: true,
+  extendedIngredients: [
+    {
+      id: 1,
+      name: 'cebula',
+      measures: {
+        metric: {
+          amount: 1,
+          unitLong: 'Tbs',
+        },
+      },
+    },
+  ],
+};
 
 const Wrapper = styled.div`
   display: grid;
@@ -77,8 +77,8 @@ export const Meal = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const { data } = await axios.get(apiUrl);
-      setMealInfo(data);
+      // const { data } = await axios.get(apiUrl);
+      setMealInfo(placeholder);
     } catch (err) {
       console.log(err); //handle error
     }
@@ -98,6 +98,7 @@ export const Meal = () => {
             vegan={mealInfo.vegan}
             glutenFree={mealInfo.glutenFree}
             imgSrc={mealInfo.image}
+            imgAlt={mealInfo.title}
           />
           <MealDetails
             link={mealInfo.sourceUrl}

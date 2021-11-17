@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Rating } from '../../atoms/Rating/Rating';
+import { Rating } from '../Rating/Rating';
 import { LinkButton } from '../../atoms/LinkButton/LinkButton';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
