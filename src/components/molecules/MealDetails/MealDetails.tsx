@@ -26,6 +26,8 @@ interface IMealDetailsProps {
 
 const Wrapper = styled.div`
   padding-left: 30px;
+  grid-row: 2/3;
+  grid-column: 2/3;
 `;
 
 export const MealDetails = ({ link, cookingTime, score, ingredients }: IMealDetailsProps) => {

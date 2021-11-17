@@ -4,6 +4,8 @@ export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  grid-row: 2/3;
+  grid-column: 1/2;
 `;
 
 export const Badges = styled.div`

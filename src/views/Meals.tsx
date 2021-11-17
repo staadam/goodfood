@@ -40,7 +40,7 @@ export const Meals = () => {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
-  console.log(meals);
+
   return (
     <Wrapper>
       {meals.length
