@@ -2,18 +2,6 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const validateCategories = async (types, clientCategory) => {
-  let validation = false;
-  try {
-    const res = await types.find().toArray();
-    const dbCategories = res.map((type) => type.category);
-    validation = dbCategories.includes(clientCategory);
-  } catch (error) {
-    console.log('error');
-  }
-  return validation;
-};
-
 const getOptions = async (client, category) => {
   const options = { data: null, error: null };
 

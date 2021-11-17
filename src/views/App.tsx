@@ -5,6 +5,7 @@ import { List } from './List';
 import { Meals } from './Meals';
 import { Meal } from './Meal';
 import styled from 'styled-components';
+import { Login } from './Login';
 
 const Wrapper = styled.div`
   padding: 30px;
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
   overflow-y: scroll;
 `;
 
-export const AuthenticatedApp = () => {
+export const App = () => {
   return (
     <MainTemplate>
       <Wrapper>
@@ -33,6 +34,9 @@ export const AuthenticatedApp = () => {
           </Route>
           <Route path='/user/fav'>fav</Route>
           <Route path='/user/notes'>notes</Route>
+          <Route path='/login'>
+            <Login />
+          </Route>
         </Switch>
       </Wrapper>
     </MainTemplate>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { AuthenticatedApp } from './AuthenticatedApp';
+import { App } from './App';
 
 export const Root = () => {
-  return <AuthenticatedApp />;
+  return <App />;
 };
