@@ -1,9 +1,13 @@
 import React from 'react';
 import { Input } from '../components/atoms/Input/Input';
 import { Button } from '../components/atoms/Button/Button';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../store/store';
 import styled from 'styled-components';
 import axios from 'axios';
+import { IUser } from '../store/stateInterface';
+import { Redirect } from 'react-router-dom';
 
 const Wrapper = styled.form`
   display: flex;
@@ -25,16 +29,20 @@ export const Login = () => {
     reset,
     formState: { errors },
   } = useForm<Inputs>();
+  const dispatch = useDispatch();
+  const isUserLogged = useSelector((state: { user: IUser }) => state.user || false);
 
   const sendLogin = async ({ login, password }: { login: string; password: string }) => {
     reset();
     try {
       const { data } = await axios.post('/.netlify/functions/login', { login, password });
-      console.log(data);
+      dispatch(setUser(data));
     } catch (err) {
       console.log(err); //handle error
     }
   };
+
+  if (isUserLogged) return <Redirect to={'/'} />;
 
   return (
     <Wrapper onSubmit={handleSubmit(sendLogin)}>

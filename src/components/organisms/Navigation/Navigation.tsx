@@ -10,8 +10,13 @@ import {
   Controls,
   Footer,
 } from './Navigation.styled';
+import { useSelector } from 'react-redux';
+import { IUser } from '../../../store/stateInterface';
+import { Login } from '../../molecules/Login/Login';
 
 export const Navigation = () => {
+  const username = useSelector((state: { user: IUser }) => (state.user ? state.user.username : 'Guest'));
+
   return (
     <Wrapper>
       <Logo>
@@ -20,7 +25,7 @@ export const Navigation = () => {
       </Logo>
       <Menu>
         <User>
-          Welcome: <span>User</span>
+          Welcome: <span>{username}</span>
         </User>
         <StyledListBorder>
           <li>
@@ -42,7 +47,9 @@ export const Navigation = () => {
           </li>
         </StyledList>
       </Menu>
-      <Controls>login</Controls>
+      <Controls>
+        <Login username={username} />
+      </Controls>
       <Footer>
         <div>
           Icons made by{' '}
