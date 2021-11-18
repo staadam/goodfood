@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MainTemplate } from '../components/templates/MainTemplate';
 import { Switch, Route } from 'react-router-dom';
 import { List } from './List';
 import { Meals } from './Meals';
 import { Meal } from './Meal';
-import styled from 'styled-components';
 import { Login } from './Login';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   padding: 30px;
@@ -15,7 +15,11 @@ const Wrapper = styled.div`
   overflow-y: scroll;
 `;
 
+// const auto;
+
 export const App = () => {
+  useEffect(() => {}, []);
+
   return (
     <MainTemplate>
       <Wrapper>
