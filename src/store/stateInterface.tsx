@@ -1,4 +1,4 @@
-interface INote {
+export interface INote {
   mealID: string;
   notes: Array<string>;
 }

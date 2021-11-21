@@ -53,7 +53,7 @@ export const Login = () => {
         type={'password'}
         {...register('password', { required: true })}
       />
-      <Button>Login</Button>
+      <Button data-testid='submitButton'>Login</Button>
     </Wrapper>
   );
 };

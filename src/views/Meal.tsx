@@ -6,6 +6,8 @@ import { MealHeader } from '../components/molecules/MealHeader/MealHeader';
 import { MealPreview } from '../components/molecules/MealPreview/MealPreview';
 import { MealDetails } from '../components/molecules/MealDetails/MealDetails';
 import { MealNotes } from '../components/organisms/MealNotes/MealNotes';
+import { useSelector } from 'react-redux';
+import { IUser } from '../store/stateInterface';
 
 interface IParams {
   id: string;
@@ -72,6 +74,7 @@ const Wrapper = styled.div`
 export const Meal = () => {
   const { id } = useParams<IParams>();
   const [mealInfo, setMealInfo] = useState<IMealInfo | null>(null);
+  const user = useSelector((state: { user: IUser }) => state.user);
 
   const apiKey = process.env.REACT_APP_SPOONACULAR_API_KEY;
   const apiUrl = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`;
@@ -107,7 +110,7 @@ export const Meal = () => {
             score={mealInfo.spoonacularScore}
             ingredients={mealInfo.extendedIngredients}
           />
-          <MealNotes id={id} />
+          {user ? <MealNotes id={id} notes={user.notes} /> : null}
         </>
       ) : (
         'loading'
