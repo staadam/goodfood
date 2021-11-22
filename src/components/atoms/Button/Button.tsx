@@ -1,6 +1,11 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
+interface IButtonProps {
+  children: ReactNode;
+  onClick?(): void;
+}
+
 const StyledButton = styled.button`
   padding: 8px 30px;
   font-size: 25px;
@@ -17,6 +22,10 @@ const StyledButton = styled.button`
   }
 `;
 
-export const Button = ({ children, ...props }: { children: ReactNode }) => {
-  return <StyledButton {...props}>{children}</StyledButton>;
+export const Button = ({ children, onClick, ...props }: IButtonProps) => {
+  return (
+    <StyledButton onClick={onClick} {...props}>
+      {children}
+    </StyledButton>
+  );
 };

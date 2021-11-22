@@ -8,6 +8,7 @@ import { MealDetails } from '../components/molecules/MealDetails/MealDetails';
 import { MealNotes } from '../components/organisms/MealNotes/MealNotes';
 import { useSelector } from 'react-redux';
 import { IUser } from '../store/stateInterface';
+import { Modal } from '../components/organisms/Modal/Modal';
 
 interface IParams {
   id: string;
