@@ -36,9 +36,10 @@ export const Login = () => {
     reset();
     try {
       const { data } = await axios.post('/.netlify/functions/login', { login, password });
+      if (data.error) throw new Error(data.error);
       dispatch(setUser(data));
-    } catch (err) {
-      console.log(err); //handle error
+    } catch (err: Error | any) {
+      console.log(err.message); //handle error
     }
   };
 

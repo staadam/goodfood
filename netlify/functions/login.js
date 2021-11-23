@@ -13,11 +13,11 @@ const validateUserCredentials = async (client, credentials) => {
     const users = db.collection('users');
     const data = await users.findOne({ username: credentials.login }, { projection: { _id: 0 } });
 
-    if (data.password === md5(credentials.password))
+    if (data && data.password === md5(credentials.password))
       options.user = { username: data.username, notes: data.notes };
     else options.error = 'wrong credentials';
   } catch (err) {
-    options.error = err;
+    options.error = 'something went wrong';
   }
   await client.close();
 
@@ -32,7 +32,7 @@ exports.handler = async function (event) {
 
   if (options.error) {
     return {
-      statusCode: 400,
+      statusCode: 200,
       body: JSON.stringify({ error: options.error }),
     };
   }
