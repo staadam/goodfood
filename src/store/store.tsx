@@ -1,9 +1,9 @@
 import { createStore } from 'redux';
 import { typeInitialState, IAction } from './stateInterface';
 
-export const addNote = (payload: any) => {
+export const updateNotes = (payload: any) => {
   return {
-    type: 'note/add',
+    type: 'notes/update',
     payload,
   };
 };
@@ -31,6 +31,8 @@ const userReducer = (state = initialState, action: IAction) => {
       return { ...state, user: action.payload };
     case 'user/remove':
       return { ...state, user: null };
+    case 'notes/update':
+      return { ...state, user: { ...state.user, notes: action.payload } };
     default:
       return state;
   }

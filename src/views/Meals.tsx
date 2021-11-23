@@ -26,7 +26,7 @@ export const Meals = () => {
   const [meals, setMeals] = useState<Array<IApiResult>>([]);
 
   const apiKey = process.env.REACT_APP_SPOONACULAR_API_KEY;
-  const apiUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&${category}=${subCategory}&number=20`;
+  const apiUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&${category}=${subCategory}&number=40`;
 
   const fetchData = useCallback(async () => {
     try {

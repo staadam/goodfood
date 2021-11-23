@@ -6,6 +6,7 @@ interface IInputProps {
   id: string;
   label: string;
   name: string;
+  isTextarea?: boolean;
 }
 
 const StyledInput = styled.input`
@@ -22,6 +23,23 @@ const StyledInput = styled.input`
   }
 `;
 
+const StyledTextarea = styled.textarea`
+  padding: 10px 15px;
+  width: 100%;
+  font-size: 25px;
+  border: 2px solid ${({ theme: { colors } }) => colors.primaryColor};
+  border-radius: 36px;
+  background: transparent;
+  min-height: 300px;
+  resize: none;
+  color: ${({ theme: { colors } }) => colors.secondaryColor};
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px 1px ${({ theme: { colors } }) => colors.primaryColor};
+  }
+`;
+
 const StyledLabel = styled.label`
   position: absolute;
   top: 0;
@@ -30,17 +48,22 @@ const StyledLabel = styled.label`
   left: 20px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isTextarea?: boolean }>`
   position: relative;
   margin-top: 30px;
+  width: ${({ isTextarea }) => (isTextarea ? '100%' : 'auto')};
 `;
 
 export const Input = React.forwardRef(
-  ({ type = 'text', name, id, label, ...props }: IInputProps, ref: ForwardedRef<HTMLInputElement>) => {
+  ({ type = 'text', name, id, label, isTextarea = false, ...props }: IInputProps, ref: ForwardedRef<any>) => {
     return (
-      <Wrapper>
+      <Wrapper isTextarea={isTextarea}>
         <StyledLabel htmlFor={id}>{label}</StyledLabel>
-        <StyledInput {...props} id={id} name={name} type={type} ref={ref} />
+        {isTextarea ? (
+          <StyledTextarea {...props} id={id} name={name} ref={ref} />
+        ) : (
+          <StyledInput {...props} id={id} name={name} type={type} ref={ref} />
+        )}
       </Wrapper>
     );
   }

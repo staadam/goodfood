@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { gsap } from 'gsap';
 import React, { useEffect, useRef } from 'react';
-import { Button } from '../../atoms/Button/Button';
+import { CancelButton } from '../../atoms/Button/Button';
 
 const Wrapper = styled.div`
   display: flex;
@@ -48,7 +48,7 @@ export const ModalWrapper = ({ children, handleCloseModal }: IModalParams) => {
       <Overlay onClick={handleCloseModal} />
       <Wrapper ref={wrapperRef}>
         {children}
-        <Button onClick={handleCloseModal}>Close</Button>
+        <CancelButton isCancel={true} onClick={handleCloseModal}></CancelButton>
       </Wrapper>
     </>
   );
