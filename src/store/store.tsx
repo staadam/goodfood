@@ -8,6 +8,13 @@ export const updateNotes = (payload: any) => {
   };
 };
 
+export const removeNote = (payload: any) => {
+  return {
+    type: 'notes/remove',
+    payload,
+  };
+};
+
 export const setUser = (payload: any) => {
   return {
     type: 'user/set',
@@ -33,6 +40,20 @@ const userReducer = (state = initialState, action: IAction) => {
       return { ...state, user: null };
     case 'notes/update':
       return { ...state, user: { ...state.user, notes: action.payload } };
+    case 'notes/remove':
+      if (state.user) {
+        const { mealID, noteText } = action.payload;
+        const mealNotes = state.user.notes.find((note) => note.mealID === mealID);
+        const newMealNotes = mealNotes?.notes.filter((noteContent) => noteContent !== noteText);
+
+        const newUserNotes = [
+          ...state.user.notes.filter((note) => note.mealID !== mealID),
+          { mealID, notes: newMealNotes },
+        ];
+        return { ...state, user: { ...state.user, notes: newUserNotes } };
+      } else {
+        return state;
+      }
     default:
       return state;
   }

@@ -33,11 +33,9 @@ const createNewUserNotesArray = (
   const notesFromCurrentMeal = currentNotes.find((note) => note.mealID === mealID);
   currentNotes = currentNotes.filter((note) => note.mealID !== mealID);
 
-  const newUserNotes = notesFromCurrentMeal
+  return notesFromCurrentMeal
     ? [...currentNotes, { mealID, notes: [...notesFromCurrentMeal.notes, newNote] }]
     : [...currentNotes, { mealID, notes: [newNote] }];
-
-  return newUserNotes;
 };
 
 export const AddNoteForm = ({ handleCloseModal, mealID }: IAddNoteProps) => {
@@ -53,13 +51,19 @@ export const AddNoteForm = ({ handleCloseModal, mealID }: IAddNoteProps) => {
     const newUserNotes = createNewUserNotesArray(user.notes, mealID, noteText);
 
     try {
-      await axios.post('/.netlify/functions/addnote', { newUserNotes, user });
+      const { data } = await axios.post('/.netlify/functions/notes', {
+        action: 'addNote',
+        data: { newUserNotes, user },
+      });
+      if (data.error) throw new Error(data.error);
       dispatch(updateNotes(newUserNotes));
       handleCloseModal();
     } catch (error) {
       console.log(error); //handle error
     }
   };
+
+  if (errors.noteText) console.log(errors); //handle error
 
   return (
     <FormWrapper onSubmit={handleSubmit(addNote)}>

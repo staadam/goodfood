@@ -30,8 +30,8 @@ export const IngredientsList = ({ ingredients }: IIngredientsListProps) => {
     <Wrapper>
       <Title>Ingredients: </Title>
       <ul>
-        {ingredients.map((ingredient) => (
-          <li key={ingredient.id}>
+        {ingredients.map((ingredient, index) => (
+          <li key={index}>
             {ingredient.name} * {ingredient.measures.metric.amount} {ingredient.measures.metric.unitLong}
           </li>
         ))}

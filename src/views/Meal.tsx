@@ -8,7 +8,6 @@ import { MealDetails } from '../components/molecules/MealDetails/MealDetails';
 import { MealNotes } from '../components/organisms/MealNotes/MealNotes';
 import { useSelector } from 'react-redux';
 import { IUser } from '../store/stateInterface';
-import { Modal } from '../components/organisms/Modal/Modal';
 
 interface IParams {
   id: string;
@@ -41,31 +40,31 @@ interface IMealInfo {
   extendedIngredients: Array<IIngredients>;
 }
 
-const placeholder = {
-  title: 'Garlicky Kale',
-  image: 'https://spoonacular.com/recipeImages/644387-556x370.jpg',
-  sourceUrl: 'http://www.foodista.com/recipe/J2FTJBF7/garlicky-kale',
-  creditsText: 'Foodista.com – The Cooking Encyclopedia Everyone Can Edit',
-
-  spoonacularScore: 73,
-  readyInMinutes: 45,
-
-  veryPopular: false,
-  glutenFree: true,
-  vegan: true,
-  extendedIngredients: [
-    {
-      id: 1,
-      name: 'cebula',
-      measures: {
-        metric: {
-          amount: 1,
-          unitLong: 'Tbs',
-        },
-      },
-    },
-  ],
-};
+// const placeholder = {
+//   title: 'Garlicky Kale',
+//   image: 'https://spoonacular.com/recipeImages/644387-556x370.jpg',
+//   sourceUrl: 'http://www.foodista.com/recipe/J2FTJBF7/garlicky-kale',
+//   creditsText: 'Foodista.com – The Cooking Encyclopedia Everyone Can Edit',
+//
+//   spoonacularScore: 73,
+//   readyInMinutes: 45,
+//
+//   veryPopular: false,
+//   glutenFree: true,
+//   vegan: true,
+//   extendedIngredients: [
+//     {
+//       id: 1,
+//       name: 'cebula',
+//       measures: {
+//         metric: {
+//           amount: 1,
+//           unitLong: 'Tbs',
+//         },
+//       },
+//     },
+//   ],
+// };
 
 const Wrapper = styled.div`
   display: grid;
@@ -78,12 +77,11 @@ export const Meal = () => {
   const user = useSelector((state: { user: IUser }) => state.user);
 
   const apiKey = process.env.REACT_APP_SPOONACULAR_API_KEY;
-  const apiUrl = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`;
-
+  const apiUrl = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}&includeNutrition=true`;
   const fetchData = useCallback(async () => {
     try {
-      // const { data } = await axios.get(apiUrl);
-      setMealInfo(placeholder);
+      const { data } = await axios.get(apiUrl);
+      setMealInfo(data);
     } catch (err) {
       console.log(err); //handle error
     }

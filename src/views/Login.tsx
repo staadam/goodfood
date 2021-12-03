@@ -44,7 +44,7 @@ export const Login = () => {
   };
 
   if (isUserLogged) return <Redirect to={'/'} />;
-  if (errors.password || errors.login) console.log(errors);
+  if (errors.password || errors.login) console.log(errors); //handle error
 
   return (
     <Wrapper onSubmit={handleSubmit(sendLogin)}>
