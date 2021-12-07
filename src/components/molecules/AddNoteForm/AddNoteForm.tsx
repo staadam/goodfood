@@ -21,7 +21,7 @@ const FormWrapper = styled.form`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  width: 50%;
+  width: 100%;
   flex-wrap: wrap;
 `;
 
@@ -51,13 +51,12 @@ export const AddNoteForm = ({ handleCloseModal, mealID }: IAddNoteProps) => {
     const newUserNotes = createNewUserNotesArray(user.notes, mealID, noteText);
 
     try {
+      dispatch(updateNotes(newUserNotes));
+      handleCloseModal();
       const { data } = await axios.post('/.netlify/functions/notes', {
-        action: 'addNote',
         data: { newUserNotes, user },
       });
       if (data.error) throw new Error(data.error);
-      dispatch(updateNotes(newUserNotes));
-      handleCloseModal();
     } catch (error) {
       console.log(error); //handle error
     }

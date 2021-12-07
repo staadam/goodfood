@@ -4,18 +4,18 @@ import React, { useEffect, useRef } from 'react';
 import { CancelButton } from '../../atoms/Button/Button';
 
 const Wrapper = styled.div`
-  display: flex;
+  //display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: fixed;
   top: 50%;
   left: 50%;
+  width: auto;
   transform: translate(-50%, -50%);
-  width: 90%;
-  height: 90%;
-  padding: 30px;
+  padding: 60px 30px 30px 30px;
   max-width: 1300px;
+  min-width: 300px;
   max-height: 700px;
   border-radius: 36px;
   background-color: ${({ theme: { colors } }) => colors.bgColor};
@@ -29,6 +29,8 @@ const Overlay = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  opacity: 1;
 `;
 
 interface IModalParams {
@@ -38,17 +40,19 @@ interface IModalParams {
 
 export const ModalWrapper = ({ children, handleCloseModal }: IModalParams) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const overRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.from(wrapperRef.current, { y: -200, duration: 0.3, opacity: 0 });
+    gsap.from(overRef.current, { opacity: 0, duration: 0.3 });
   }, []);
 
   return (
     <>
-      <Overlay onClick={handleCloseModal} />
+      <Overlay ref={overRef} onClick={handleCloseModal} />
       <Wrapper ref={wrapperRef}>
+        <CancelButton isCancel={true} onClick={handleCloseModal} />
         {children}
-        <CancelButton isCancel={true} onClick={handleCloseModal}></CancelButton>
       </Wrapper>
     </>
   );
