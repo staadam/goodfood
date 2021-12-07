@@ -2,11 +2,7 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const addNote = async (client, user, newUserNotes) => {
-  return await changeDB(client, user, newUserNotes);
-};
-
-const removeNote = async (client, user, newUserNotes) => {
+const setNote = async (client, user, newUserNotes) => {
   return await changeDB(client, user, newUserNotes);
 };
 
@@ -30,7 +26,7 @@ exports.handler = async function (event) {
   const uri = process.env.DB_URI;
   const { data } = JSON.parse(event.body);
   const client = new MongoClient(uri, { useNewUrlParser: true });
-  let options = await addNote(client, data.user, data.newUserNotes);
+  let options = await setNote(client, data.user, data.newUserNotes);
 
   if (options.error) {
     return {

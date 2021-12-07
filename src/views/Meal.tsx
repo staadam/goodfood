@@ -109,7 +109,7 @@ export const Meal = () => {
             score={mealInfo.spoonacularScore}
             ingredients={mealInfo.extendedIngredients}
           />
-          {user ? <MealNotes id={id} notes={user.notes} /> : null}
+          {user ? <MealNotes id={id} notes={user.notes || []} /> : null}
         </>
       ) : (
         'loading'

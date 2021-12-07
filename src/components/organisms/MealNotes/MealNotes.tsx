@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NoteWrapper } from '../../molecules/NoteWrapper/NoteWrapper';
 import { Title } from '../../atoms/Title/Title';
 import { INote } from '../../../store/stateInterface';
 import { Button } from '../../atoms/Button/Button';
@@ -8,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from '../Modal/Modal';
 import { AddNoteForm } from '../../molecules/AddNoteForm/AddNoteForm';
-import { RemoveNote } from '../../molecules/RemoveNote/RemoveNote';
+import { Note } from '../../molecules/Note/Note';
 
 const Wrapper = styled.section`
   margin-top: 50px;
@@ -30,12 +29,7 @@ export const MealNotes = ({ id, notes }: IMealNotesParams) => {
     <Wrapper>
       <Title isBig>Notes: </Title>
       {mealNotes ? (
-        mealNotes.notes.map((note, index) => (
-          <NoteWrapper key={index}>
-            {note}
-            <RemoveNote noteText={note} id={id} />
-          </NoteWrapper>
-        ))
+        mealNotes.notes.map((note, index) => <Note key={index} index={index} note={note} id={id} />)
       ) : (
         <p>You have no notes yet</p>
       )}

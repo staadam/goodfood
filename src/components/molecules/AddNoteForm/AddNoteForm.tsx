@@ -4,9 +4,10 @@ import { Input } from '../../atoms/Input/Input';
 import { useForm } from 'react-hook-form';
 import { Button } from '../../atoms/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { INote, IUser } from '../../../store/stateInterface';
+import { IUser } from '../../../store/stateInterface';
 import axios from 'axios';
 import { updateNotes } from '../../../store/store';
+import { createUserNotesAdd } from '../../../healpers/createUserNotesAdd';
 
 type Inputs = {
   noteText: string;
@@ -25,19 +26,6 @@ const FormWrapper = styled.form`
   flex-wrap: wrap;
 `;
 
-const createNewUserNotesArray = (
-  currentNotes: Array<INote>,
-  mealID: string,
-  newNote: string
-): Array<INote> => {
-  const notesFromCurrentMeal = currentNotes.find((note) => note.mealID === mealID);
-  currentNotes = currentNotes.filter((note) => note.mealID !== mealID);
-
-  return notesFromCurrentMeal
-    ? [...currentNotes, { mealID, notes: [...notesFromCurrentMeal.notes, newNote] }]
-    : [...currentNotes, { mealID, notes: [newNote] }];
-};
-
 export const AddNoteForm = ({ handleCloseModal, mealID }: IAddNoteProps) => {
   const {
     register,
@@ -48,7 +36,7 @@ export const AddNoteForm = ({ handleCloseModal, mealID }: IAddNoteProps) => {
   const dispatch = useDispatch();
 
   const addNote = async ({ noteText }: { noteText: string }) => {
-    const newUserNotes = createNewUserNotesArray(user.notes, mealID, noteText);
+    const newUserNotes = createUserNotesAdd(user.notes || [], mealID, noteText);
 
     try {
       dispatch(updateNotes(newUserNotes));
