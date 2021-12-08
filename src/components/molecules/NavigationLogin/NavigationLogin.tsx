@@ -33,6 +33,7 @@ export const NavigationLogin = ({ user }: { user: IUser }) => {
 
   const logout = () => {
     dispatch(removeUser());
+    localStorage.removeItem('sessionToken');
   };
 
   return (

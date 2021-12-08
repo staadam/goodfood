@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { MainTemplate } from '../components/templates/MainTemplate';
 import { Switch, Route } from 'react-router-dom';
 import { List } from './List';
@@ -6,6 +6,9 @@ import { Meals } from './Meals';
 import { Meal } from './Meal';
 import { Login } from './Login';
 import styled from 'styled-components';
+import axios from 'axios';
+import { setUser } from '../store/store';
+import { useDispatch } from 'react-redux';
 
 const Wrapper = styled.div`
   padding: 30px;
@@ -16,6 +19,25 @@ const Wrapper = styled.div`
 `;
 
 export const App = () => {
+  const dispatch = useDispatch();
+
+  const loginViaToken = useCallback(async () => {
+    const sessionToken = localStorage.getItem('sessionToken');
+    if (sessionToken) {
+      try {
+        const { data } = await axios.post('/.netlify/functions/auth', { sessionToken });
+        if (data.error) throw new Error(data.error);
+        dispatch(setUser(data));
+      } catch (err: Error | any) {
+        console.log(err.message); //handle error
+      }
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    loginViaToken();
+  }, [loginViaToken]);
+
   return (
     <MainTemplate>
       <Wrapper>

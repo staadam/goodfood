@@ -3,7 +3,7 @@ const { MongoClient } = require('mongodb');
 const md5 = require('md5');
 require('dotenv').config();
 
-const validateUserCredentials = async (client, credentials) => {
+const validateUserToken = async (client, sessionToken) => {
   const options = { user: null, error: null };
 
   try {
@@ -11,16 +11,14 @@ const validateUserCredentials = async (client, credentials) => {
 
     const db = client.db('goodfood');
     const users = db.collection('users');
-    const data = await users.findOne({ username: credentials.login }, { projection: { _id: 0 } });
-
-    if (data && data.password === md5(credentials.password))
-      options.user = {
-        username: data.username,
-        notes: data.notes,
-        userID: data.userID,
-        sessionToken: data.sessionToken,
-      };
-    else options.error = 'wrong credentials';
+    const data = await users.findOne({ sessionToken }, { projection: { _id: 0 } });
+    if (!data) options.error = 'something went wrong';
+    options.user = {
+      username: data.username,
+      notes: data.notes,
+      userID: data.userID,
+      sessionToken: data.sessionToken,
+    };
   } catch (err) {
     options.error = 'something went wrong';
   }
@@ -31,9 +29,9 @@ const validateUserCredentials = async (client, credentials) => {
 
 exports.handler = async function (event) {
   const uri = process.env.DB_URI;
-  const { login, password } = JSON.parse(event.body);
+  const { sessionToken } = JSON.parse(event.body);
   const client = new MongoClient(uri, { useNewUrlParser: true });
-  const options = await validateUserCredentials(client, { login, password });
+  const options = await validateUserToken(client, sessionToken);
 
   if (options.error) {
     return {
