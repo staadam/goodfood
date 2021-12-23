@@ -1,7 +1,7 @@
 import React from 'react';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fullStar } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateFav } from '../../../store/store';
 import { FavButton, FavStar, FullFavStar } from './Fav.styled';
 import axios from 'axios';
@@ -21,8 +21,8 @@ export const Fav = ({ id, user }: IFavProps) => {
     const newFavs = isFav ? favs.filter((fav) => fav !== id.toString()) : [...favs, id.toString()];
     try {
       dispatch(updateFav(newFavs));
-      // const { data } = await axios.post('/.netlify/functions/favs', { newFavs });
-      // if (data.error) throw new Error(data.error);
+      const { data } = await axios.post('/.netlify/functions/favs', { newFavs, user });
+      if (data.error) throw new Error(data.error);
     } catch (e) {
       //handle error
     }
