@@ -1,38 +1,32 @@
 /* eslint-disable */
 const { MongoClient } = require('mongodb');
-const md5 = require('md5');
 require('dotenv').config();
 
-const validateUserToken = async (client, sessionToken) => {
-  const options = { user: null, error: null };
+const setNote = async (client, user, newUserNotes) => {
+  return await changeDB(client, user, newUserNotes);
+};
+
+const changeDB = async (client, user, newUserNotes) => {
+  const options = { message: null, error: null };
 
   try {
     await client.connect();
-
     const db = client.db('goodfood');
     const users = db.collection('users');
-    const data = await users.findOne({ sessionToken }, { projection: { _id: 0 } });
-    if (!data) options.error = 'something went wrong';
-    options.user = {
-      username: data.username,
-      notes: data.notes,
-      userID: data.userID,
-      favs: data.favs,
-      sessionToken: data.sessionToken,
-    };
+    await users.update({ userID: user.userID }, { $set: { notes: newUserNotes } });
+    options.message = 'success';
   } catch (err) {
     options.error = 'something went wrong';
   }
   await client.close();
-
   return options;
 };
 
 exports.handler = async function (event) {
   const uri = process.env.DB_URI;
-  const { sessionToken } = JSON.parse(event.body);
+  const { data } = JSON.parse(event.body);
   const client = new MongoClient(uri, { useNewUrlParser: true });
-  const options = await validateUserToken(client, sessionToken);
+  let options = await setNote(client, data.user, data.newUserNotes);
 
   if (options.error) {
     return {
@@ -43,6 +37,6 @@ exports.handler = async function (event) {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(options.user),
+    body: JSON.stringify({ message: options.message }),
   };
 };

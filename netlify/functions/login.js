@@ -18,6 +18,7 @@ const validateUserCredentials = async (client, credentials) => {
         username: data.username,
         notes: data.notes,
         userID: data.userID,
+        favs: data.favs,
         sessionToken: data.sessionToken,
       };
     else options.error = 'wrong credentials';

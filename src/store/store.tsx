@@ -15,6 +15,13 @@ export const removeNote = (payload: any) => {
   };
 };
 
+export const updateFav = (payload: any) => {
+  return {
+    type: 'fav/update',
+    payload,
+  };
+};
+
 export const setUser = (payload: any) => {
   return {
     type: 'user/set',
@@ -42,6 +49,8 @@ const userReducer = (state = initialState, action: IAction) => {
       return { ...state, user: { ...state.user, notes: action.payload } };
     case 'notes/remove':
       return { ...state, user: { ...state.user, notes: action.payload } };
+    case 'fav/update':
+      return { ...state, user: { ...state.user, favs: action.payload } };
     default:
       return state;
   }

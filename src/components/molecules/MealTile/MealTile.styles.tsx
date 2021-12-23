@@ -15,6 +15,15 @@ export const StyledLink = styled(Link)`
   color: ${({ theme: { colors } }) => colors.white};
   overflow: hidden;
 
+  h2 {
+    padding: 10px 10px 0 10px;
+  }
+`;
+
+export const Wrapper = styled.div`
+  position: relative;
+  overflow: hidden;
+
   .fav {
     transform: translateY(-100px);
   }
@@ -28,9 +37,4 @@ export const StyledLink = styled(Link)`
     .fav {
       transform: translateY(0);
     }
-  }
-
-  h2 {
-    padding: 10px 10px 0 10px;
-  }
 `;

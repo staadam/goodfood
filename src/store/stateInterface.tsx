@@ -5,6 +5,7 @@ export interface INote {
 
 export interface IUser {
   username: string;
+  favs: Array<string>;
   notes: Array<INote>;
 }
 

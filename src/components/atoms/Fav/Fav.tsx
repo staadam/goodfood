@@ -1,28 +1,36 @@
 import React from 'react';
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
-
-const FavButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: transparent;
-  border: none;
-  transition: transform 0.2s;
-`;
-
-const FavStar = styled(FontAwesomeIcon)`
-  color: white;
-  font-size: 30px;
-`;
+import { faStar as fullStar } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+import { updateFav } from '../../../store/store';
+import { FavButton, FavStar, FullFavStar } from './Fav.styled';
+import axios from 'axios';
+import { IUser } from '../../../store/stateInterface';
 
 interface IFavProps {
-  id?: number;
+  id: number;
+  user: IUser;
 }
 
-export const Fav = ({ id }: IFavProps) => (
-  <FavButton className='fav'>
-    <FavStar icon={faStar} />
-  </FavButton>
-);
+export const Fav = ({ id, user }: IFavProps) => {
+  const { favs } = user;
+  const dispatch = useDispatch();
+  const isFav = favs.find((fav) => fav === id.toString());
+
+  const handleOnClick = async () => {
+    const newFavs = isFav ? favs.filter((fav) => fav !== id.toString()) : [...favs, id.toString()];
+    try {
+      dispatch(updateFav(newFavs));
+      // const { data } = await axios.post('/.netlify/functions/favs', { newFavs });
+      // if (data.error) throw new Error(data.error);
+    } catch (e) {
+      //handle error
+    }
+  };
+
+  return (
+    <FavButton className='fav' onClick={handleOnClick}>
+      {isFav ? <FullFavStar icon={fullStar} /> : <FavStar icon={faStar} />}
+    </FavButton>
+  );
+};
