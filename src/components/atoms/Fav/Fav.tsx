@@ -6,6 +6,7 @@ import { updateFav } from '../../../store/store';
 import { FavButton, FavStar, FullFavStar } from './Fav.styled';
 import axios from 'axios';
 import { IUser } from '../../../store/stateInterface';
+import { useError } from '../../../hooks/useError';
 
 interface IFavProps {
   id: number;
@@ -13,6 +14,7 @@ interface IFavProps {
 }
 
 export const Fav = ({ id, user }: IFavProps) => {
+  const { dispatchError } = useError();
   const { favs } = user;
   const dispatch = useDispatch();
   const isFav = favs.find((fav) => fav === id.toString());
@@ -23,8 +25,8 @@ export const Fav = ({ id, user }: IFavProps) => {
       dispatch(updateFav(newFavs));
       const { data } = await axios.post('/.netlify/functions/favs', { newFavs, user });
       if (data.error) throw new Error(data.error);
-    } catch (e) {
-      //handle error
+    } catch (e: any) {
+      dispatchError(e.message);
     }
   };
 

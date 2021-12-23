@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { IUser } from '../store/stateInterface';
 import { Redirect } from 'react-router-dom';
+import { useError } from '../hooks/useError';
 
 const Wrapper = styled.form`
   display: flex;
@@ -31,6 +32,7 @@ export const Login = () => {
   } = useForm<Inputs>();
   const dispatch = useDispatch();
   const isUserLogged = useSelector((state: { user: IUser }) => state.user || false);
+  const { dispatchError } = useError();
 
   const sendLogin = async ({ login, password }: { login: string; password: string }) => {
     reset();
@@ -40,7 +42,7 @@ export const Login = () => {
       dispatch(setUser(data));
       localStorage.setItem('sessionToken', data.sessionToken);
     } catch (err: Error | any) {
-      console.log(err.message); //handle error
+      dispatchError(err.message);
     }
   };
 

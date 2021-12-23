@@ -5,12 +5,15 @@ import { HashRouter as Router } from 'react-router-dom';
 import { GlobalStyles } from '../assets/GlobalStyles';
 import { store } from '../store/store';
 import { Provider } from 'react-redux';
+import { ErrorProvider } from '../hooks/useError';
 
 export const AppProvider = ({ children }: { children: ReactNode }) => (
   <Router>
     <Provider store={store}>
-      <GlobalStyles />
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ErrorProvider>
+        <GlobalStyles />
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </ErrorProvider>
     </Provider>
   </Router>
 );
