@@ -12,7 +12,7 @@ const getOptions = async (client, category) => {
     const types = db.collection('types');
     options.data = await types.findOne({ category }, { projection: { _id: 0, category: 0 } });
   } catch (err) {
-    options.error = err;
+    options.error = 'Something went wrong, try again later';
   }
   await client.close();
 
@@ -26,8 +26,8 @@ exports.handler = async function (event, context) {
   const options = await getOptions(client, category);
   if (options.error) {
     return {
-      statusCode: 400,
-      body: JSON.stringify({ error: `This type doesn't exist. Sorry, try again` }),
+      statusCode: 200,
+      body: JSON.stringify({ error: options.error }),
     };
   }
 

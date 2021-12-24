@@ -8,6 +8,7 @@ import { MealDetails } from '../components/molecules/MealDetails/MealDetails';
 import { MealNotes } from '../components/organisms/MealNotes/MealNotes';
 import { useSelector } from 'react-redux';
 import { IUser } from '../store/stateInterface';
+import { useError } from '../hooks/useError';
 
 interface IParams {
   id: string;
@@ -72,6 +73,7 @@ const Wrapper = styled.div`
 `;
 
 export const Meal = () => {
+  const { dispatchError } = useError();
   const { id } = useParams<IParams>();
   const [mealInfo, setMealInfo] = useState<IMealInfo | null>(null);
   const user = useSelector((state: { user: IUser }) => state.user);
@@ -82,10 +84,10 @@ export const Meal = () => {
     try {
       const { data } = await axios.get(apiUrl);
       setMealInfo(data);
-    } catch (err) {
-      console.log(err); //handle error
+    } catch (err: any) {
+      dispatchError(err.message);
     }
-  }, [apiUrl]);
+  }, [dispatchError, apiUrl]);
 
   useEffect(() => {
     fetchData();

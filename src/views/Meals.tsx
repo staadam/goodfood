@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { MealTile } from '../components/molecules/MealTile/MealTile';
 import axios from 'axios';
+import { useError } from '../hooks/useError';
 
 const Wrapper = styled.section`
   display: grid;
@@ -22,6 +23,7 @@ interface IApiResult {
 }
 
 export const Meals = () => {
+  const { dispatchError } = useError();
   const { category, subCategory } = useParams<IParams>();
   const [meals, setMeals] = useState<Array<IApiResult>>([]);
 
@@ -32,10 +34,10 @@ export const Meals = () => {
     try {
       const { data } = await axios.get(apiUrl);
       setMeals(data.results);
-    } catch (err) {
-      console.log(err); //handle error
+    } catch (err: any) {
+      dispatchError(err.message);
     }
-  }, [apiUrl]);
+  }, [dispatchError, apiUrl]);
 
   useEffect(() => {
     fetchData();

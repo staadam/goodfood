@@ -25,7 +25,7 @@ export const Navigation = () => {
       </Logo>
       <Menu>
         <User>
-          Welcome: <span>{user ? user.username : 'Guest'}</span>
+          Welcome <span>{user ? user.username : 'Guest'}</span>
         </User>
         <StyledListBorder>
           <li>

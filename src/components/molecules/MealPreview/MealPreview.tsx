@@ -17,8 +17,8 @@ export const MealPreview = ({ popular, vegan, glutenFree, imgSrc, imgAlt }: IMea
     <MealImg>{<img src={imgSrc} alt={imgAlt} />}</MealImg>
     <Badges>
       {popular && <img alt='popular' src={popularImg} />}
-      {vegan && <img alt='vegan' src={glutenFreeImg} />}
-      {glutenFree && <img alt='gluten free' src={veganImg} />}
+      {vegan && <img alt='vegan' src={veganImg} />}
+      {glutenFree && <img alt='gluten free' src={glutenFreeImg} />}
     </Badges>
   </Wrapper>
 );
