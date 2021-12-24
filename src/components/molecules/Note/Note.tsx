@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RemoveNote } from '../RemoveNote/RemoveNote';
-import { NoteWrapper } from './Note.styled';
+import { NoteSpan, NoteWrapper } from './Note.styled';
 import { EditNoteForm } from '../EditNoteForm/EditNoteForm';
 
 interface INoteProps {
@@ -21,7 +21,7 @@ export const Note = ({ note, id, index }: INoteProps) => {
       {isEditing ? (
         <EditNoteForm handleCloseEditing={handleCloseEditing} note={note} id={id} index={index} />
       ) : (
-        <span onClick={handleOnClick}> {note}</span>
+        <NoteSpan onClick={handleOnClick}>{note}</NoteSpan>
       )}
       <RemoveNote noteText={note} id={id} />
     </NoteWrapper>

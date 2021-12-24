@@ -20,3 +20,9 @@ export const NoteWrapper = styled.div`
     content: none;
   }
 `;
+
+export const NoteSpan = styled.span`
+  display: block;
+  max-width: 90%;
+  overflow-wrap: anywhere;
+`;
