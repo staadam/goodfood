@@ -41,32 +41,6 @@ interface IMealInfo {
   extendedIngredients: Array<IIngredients>;
 }
 
-// const placeholder = {
-//   title: 'Garlicky Kale',
-//   image: 'https://spoonacular.com/recipeImages/644387-556x370.jpg',
-//   sourceUrl: 'http://www.foodista.com/recipe/J2FTJBF7/garlicky-kale',
-//   creditsText: 'Foodista.com – The Cooking Encyclopedia Everyone Can Edit',
-//
-//   spoonacularScore: 73,
-//   readyInMinutes: 45,
-//
-//   veryPopular: false,
-//   glutenFree: true,
-//   vegan: true,
-//   extendedIngredients: [
-//     {
-//       id: 1,
-//       name: 'cebula',
-//       measures: {
-//         metric: {
-//           amount: 1,
-//           unitLong: 'Tbs',
-//         },
-//       },
-//     },
-//   ],
-// };
-
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(400px, 1fr));
