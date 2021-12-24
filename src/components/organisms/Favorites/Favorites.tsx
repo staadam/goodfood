@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { IUser } from '../store/stateInterface';
-import { useError } from '../hooks/useError';
-import { MealTile } from '../components/molecules/MealTile/MealTile';
+import { IUser } from '../../../store/stateInterface';
+import { useError } from '../../../hooks/useError';
+import { MealTile } from '../../molecules/MealTile/MealTile';
 
 interface IApiResult {
   id: number;
@@ -37,7 +37,8 @@ export const Favorites = () => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Wrapper>

@@ -9,8 +9,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { setUser } from '../store/store';
 import { useDispatch } from 'react-redux';
-import { Favorites } from './Favorites';
-import { Notes } from './Notes';
+import { UserOnlyRoutes } from './UserOnlyRoutes';
 
 const Wrapper = styled.div`
   padding: 30px;
@@ -56,11 +55,8 @@ export const App = () => {
           <Route path='/meal/:id'>
             <Meal />
           </Route>
-          <Route path='/user/fav'>
-            <Favorites />
-          </Route>
-          <Route path='/user/notes'>
-            <Notes />
+          <Route path='/user/'>
+            <UserOnlyRoutes />
           </Route>
           <Route path='/login'>
             <Login />

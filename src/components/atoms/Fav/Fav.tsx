@@ -1,7 +1,7 @@
 import React from 'react';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fullStar } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateFav } from '../../../store/store';
 import { FavButton, FavStar, FullFavStar } from './Fav.styled';
 import axios from 'axios';
